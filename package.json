@@ -10,7 +10,7 @@
     "make": "electron-forge make",
     "make-all": "npm run build-backend && npm run build-frontend && electron-forge make",
     "build-frontend": "npm run clone-frontend && npm install --prefix OnlinePrivacyPilot_Frontend && npm run build --prefix OnlinePrivacyPilot_Frontend",
-    "build-backend": "npm run clone-backend && cd OnlinePrivacyPilot_Backend && pip install -e . && pyinstaller --onefile opp/rest_api.py",
+    "build-backend": "npm run clone-backend && cd OnlinePrivacyPilot_Backend && virtualenv .venv && . ./.venv/bin/activate && pip install -e . && pyinstaller --onefile opp/rest_api.py && deactivate",
     "clone-frontend": "npm run clone-frontend-windows || npm run clone-frontend-linux",
     "clone-frontend-windows": "IF NOT EXIST OnlinePrivacyPilot_Frontend (git clone -b develop https://github.com/OnlinePrivacyPilot/OnlinePrivacyPilot_Frontend.git)",
     "clone-frontend-linux": "test -d OnlinePrivacyPilot_Frontend || git clone -b develop https://github.com/OnlinePrivacyPilot/OnlinePrivacyPilot_Frontend.git",
