@@ -23,7 +23,7 @@ function createWindow () {
 
     setTimeout(() => { 
       mainWindow.loadFile('index.html'); 
-    }, 500);
+    }, 1000);
   } else {
     setTimeout(() => { 
       mainWindow.loadURL('http://localhost:3000');
