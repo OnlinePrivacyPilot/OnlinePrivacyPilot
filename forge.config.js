@@ -6,25 +6,17 @@ module.exports = {
   rebuildConfig: {},
   makers: [
     {
-      name: '@electron-forge/maker-squirrel',
-      config: {},
-    },
-    {
       name: '@electron-forge/maker-zip',
-      platforms: ['darwin'],
-    },
-    {
-      name: '@electron-forge/maker-deb',
-      config: {},
-    },
+      platforms: ['darwin', 'linux', 'win32'],
+    }
   ],
   hooks: {
     packageAfterCopy: async (config, buildPath, electronVersion, platform, arch) => {
-      var src_back = path.join(__dirname, 'OnlinePrivacyPilot_Backend/dist/');
-      var src_front = path.join(__dirname, 'OnlinePrivacyPilot_Frontend/build/');
+      var back_build = path.join(__dirname, '../OnlinePrivacyPilot_Backend/dist/');
+      var front_build = path.join(__dirname, '../OnlinePrivacyPilot_Frontend/build/');
       var dst = buildPath;
-      fs.cpSync(src_back, dst, {recursive: true});
-      fs.cpSync(src_front, dst, {recursive: true});
+      fs.cpSync(back_build, dst, {recursive: true});
+      fs.cpSync(front_build, dst, {recursive: true});
     }
   }
 };
