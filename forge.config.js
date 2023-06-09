@@ -12,7 +12,7 @@ module.exports = {
     {
       name: '@electron-forge/maker-deb',
       config: {
-        icon: "https://raw.githubusercontent.com/OnlinePrivacyPilot/OnlinePrivacyPilot_Frontend/develop/public/logo512.png"
+        icon: "../OnlinePrivacyPilot_Frontend/public/logo512.png"
       },
     }
   ],
