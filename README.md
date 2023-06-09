@@ -26,11 +26,18 @@ sudo dpkg -i chrome.deb
 
 ### 🪟 Windows
 
+For all commands, please use Powershell.
+
 - Install git : https://git-scm.com/download/win
 - Install latest (current) version of NodeJS (*tested with 18.16.0 LTS & 20.3.0 Current*) : https://nodejs.org/en/download/current
 - Install Google Chrome : https://www.google.com/chrome/
 
 - Install Python : https://www.python.org/downloads/ . During the step of installation process make sure you select the option "**Add python.exe to PATH**".
+
+- Install Virtualenv:
+```bash
+py.exe -m pip install virtualenv
+```
 
 ## 🛠️ Build the OnlinePrivacyPilot
 
