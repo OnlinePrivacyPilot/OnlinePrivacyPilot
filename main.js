@@ -2,47 +2,43 @@ const { app, BrowserWindow } = require('electron');
 const path = require('path');
 const child_process = require('child_process');
 
-function createWindow () {
-
+function createWindow() {
   const mainWindow = new BrowserWindow({
     width: 600,
     height: 800,
-  })
+  });
 
-  if(app.isPackaged) {
+  if (app.isPackaged) {
     const RestApiPath = path.join(__dirname, 'rest_api');
     const RestApiProcess = child_process.spawn(RestApiPath, []);
 
     RestApiProcess.on('error', (err) => {
-      console.error('Erreur lors du lancement du fichier binaire:', err);
-    });
-  
-    RestApiProcess.on('close', (code) => {
-      console.log('Le fichier binaire s\'est arrêté avec le code de sortie', code);
+      console.error('Error launching binary file:', err);
     });
 
-    setTimeout(() => { 
-      mainWindow.loadFile('index.html'); 
+    RestApiProcess.on('close', (code) => {
+      console.log('The binary file stopped with the output code:', code);
+    });
+    setTimeout(() => {
+      mainWindow.loadFile('index.html');
     }, 1000);
+    return RestApiProcess; // Return the child process
   } else {
-    setTimeout(() => { 
+    setTimeout(() => {
       mainWindow.loadURL('http://localhost:3000');
     }, 3000);
   }
 }
 
-app.whenReady().then(() => {
-  createWindow()
+let restApiProcess; // Variable to store the child process
 
-  app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow()
-    }
-  })
-})
+app.whenReady().then(() => {
+  restApiProcess = createWindow(); // Assign the returned child process to the variable
+});
 
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
+  if (restApiProcess) {
+    restApiProcess.kill('SIGINT'); // Use the stored child process to kill it
   }
-})
+  app.quit();
+});
