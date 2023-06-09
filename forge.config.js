@@ -6,8 +6,14 @@ module.exports = {
   rebuildConfig: {},
   makers: [
     {
-      name: '@electron-forge/maker-zip',
-      platforms: ['darwin', 'linux', 'win32'],
+      name: '@rabbitholesyndrome/electron-forge-maker-portable',
+      config: {}
+    },
+    {
+      name: '@electron-forge/maker-deb',
+      config: {
+        icon: "https://raw.githubusercontent.com/OnlinePrivacyPilot/OnlinePrivacyPilot_Frontend/develop/public/logo512.png"
+      },
     }
   ],
   hooks: {

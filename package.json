@@ -1,5 +1,6 @@
 {
   "name": "onlineprivacypilot",
+  "authors": "OPP dev team",
   "version": "1.0.0",
   "description": "OnlinePrivacyPilot Electron App",
   "main": "main.js",
@@ -10,9 +11,15 @@
     "make": "electron-forge make",
     "make-all": "npm run build-backend && npm run build-frontend && electron-forge make",
     "build-frontend": "npm run clone-frontend && npm install --prefix ../OnlinePrivacyPilot_Frontend && npm run build --prefix ../OnlinePrivacyPilot_Frontend",
-    "build-backend": "npm run clone-backend && cd ../OnlinePrivacyPilot_Backend && virtualenv .venv && . ./.venv/bin/activate && pip install -e . && pyinstaller --onefile opp/rest_api.py && deactivate && cd ../OnlinePrivacyPilot",
-    "clone-frontend": "test -d ../OnlinePrivacyPilot_Frontend || git clone -b develop https://github.com/OnlinePrivacyPilot/OnlinePrivacyPilot_Frontend.git ../OnlinePrivacyPilot_Frontend",
-    "clone-backend": "test -d ../OnlinePrivacyPilot_Backend || git clone -b develop https://github.com/OnlinePrivacyPilot/OnlinePrivacyPilot_Backend.git ../OnlinePrivacyPilot_Backend"
+    "build-backend": "run-script-os",
+    "build-backend:linux": "npm run clone-backend && cd ../OnlinePrivacyPilot_Backend && virtualenv .venv && . ./.venv/bin/activate && pip install -e . && pyinstaller --onefile opp/rest_api.py && deactivate && cd ../OnlinePrivacyPilot",
+    "build-backend:win32": "npm run clone-backend && cd ../OnlinePrivacyPilot_Backend && IF NOT EXIST .venv (virtualenv .venv) && .\\.venv\\Scripts\\activate && pip install -e . && pyinstaller --onefile opp/rest_api.py && deactivate && cd ../OnlinePrivacyPilot",
+    "clone-frontend": "run-script-os",
+    "clone-frontend:linux": "test -d ../OnlinePrivacyPilot_Frontend || git clone -b develop https://github.com/OnlinePrivacyPilot/OnlinePrivacyPilot_Frontend.git ../OnlinePrivacyPilot_Frontend",
+    "clone-frontend:win32": "IF NOT EXIST ../OnlinePrivacyPilot_Frontend (git clone -b develop https://github.com/OnlinePrivacyPilot/OnlinePrivacyPilot_Frontend.git ../OnlinePrivacyPilot_Frontend)",
+    "clone-backend": "run-script-os",
+    "clone-backend:linux": "test -d ../OnlinePrivacyPilot_Backend || git clone -b develop https://github.com/OnlinePrivacyPilot/OnlinePrivacyPilot_Backend.git ../OnlinePrivacyPilot_Backend",
+    "clone-backend:win32": "IF NOT EXIST ../OnlinePrivacyPilot_Backend (git clone -b develop https://github.com/OnlinePrivacyPilot/OnlinePrivacyPilot_Backend.git ../OnlinePrivacyPilot_Backend)"
   },
   "repository": {
     "type": "git",
@@ -30,10 +37,10 @@
   "devDependencies": {
     "@electron-forge/cli": "^6.1.1",
     "@electron-forge/maker-deb": "^6.1.1",
-    "@electron-forge/maker-rpm": "^6.1.1",
     "@electron-forge/maker-squirrel": "^6.1.1",
-    "@electron-forge/maker-zip": "^6.1.1",
+    "@rabbitholesyndrome/electron-forge-maker-portable": "^0.1.1",
     "concurrently": "^8.1.0",
-    "electron": "^25.0.1"
+    "electron": "^25.0.1",
+    "run-script-os": "^1.1.6"
   }
 }
