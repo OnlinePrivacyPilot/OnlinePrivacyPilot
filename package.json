@@ -6,7 +6,9 @@
   "main": "main.js",
   "scripts": {
     "start": "electron-forge start",
-    "start-all": "npm run clone-frontend && npm install --prefix ../OnlinePrivacyPilot_Frontend && concurrently \"BROWSER=None npm start --prefix ../OnlinePrivacyPilot_Frontend\" \"electron-forge start\"",
+    "start-all": "run-script-os",
+    "start-all:linux": "npm run clone-frontend && npm install --prefix ../OnlinePrivacyPilot_Frontend && concurrently \"BROWSER=None npm start --prefix ../OnlinePrivacyPilot_Frontend\" \"electron-forge start\"",
+    "start-all:win32": "npm run clone-frontend && npm install --prefix ../OnlinePrivacyPilot_Frontend && set \"BROWSER=none\" && concurrently \"npm start --prefix ../OnlinePrivacyPilot_Frontend\" \"electron-forge start\"",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "make-all": "npm run build-backend && npm run build-frontend && electron-forge make",
